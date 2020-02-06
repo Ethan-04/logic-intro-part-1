@@ -1,6 +1,3 @@
-function game_Over () {
-    game.over(false)
-}
 function change_Score () {
     info.changeScoreBy(1)
 }
@@ -24,6 +21,9 @@ function Meteor () {
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.Enemy)
     meteor.setPosition(scene.screenWidth(), Math.randomRange(0, scene.screenHeight()))
+}
+function game_Over () {
+    game.over(false)
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     game.over(false)
@@ -54,12 +54,8 @@ spaceship.setFlag(SpriteFlag.StayInScreen, true)
 info.setScore(0)
 Meteor()
 change_Score()
-// Score
-game.onUpdateInterval(2000, function () {
-	
-})
 // Meteor
-game.onUpdateInterval(500, function () {
+game.onUpdateInterval(350, function () {
     meteor = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . 2 2 2 2 2 2 2 . . . . . . 
@@ -89,4 +85,8 @@ game.onUpdateInterval(500, function () {
     if (info.score() <= 20) {
         controller.moveSprite(spaceship, 100 - 2 * info.score(), 100 - 2 * info.score())
     }
+})
+// Score
+game.onUpdateInterval(1000, function () {
+    info.changeScoreBy(1)
 })
